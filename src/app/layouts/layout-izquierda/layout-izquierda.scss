@@ -1,0 +1,272 @@
+.layout-izquierda-container {
+  width: 100%;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.layout-content {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.media-column {
+  width: 100%;
+}
+
+.media-wrapper {
+  position: relative;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  .media-image,
+  .media-video {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  .media-video {
+    max-height: 500px;
+  }
+
+  .media-video-iframe {
+    width: 100%;
+    height: 450px;
+    display: block;
+    border: none;
+  }
+
+  .media-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #ffffff;
+    font-weight: 500;
+    z-index: 2;
+
+    &.video-badge {
+      background: rgba(59, 130, 246, 0.9);
+    }
+
+    i {
+      font-size: 1rem;
+    }
+  }
+}
+
+.text-column {
+  width: 100%;
+}
+
+.text-content {
+  color: #ffffff;
+
+  .content-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin: 0 0 1rem 0;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+
+  .content-subtitle {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #5bb5e8;
+    margin: 0 0 1.5rem 0;
+    line-height: 1.3;
+  }
+
+  .divider {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #5bb5e8 0%, #3b82f6 100%);
+    margin-bottom: 1.5rem;
+    border-radius: 2px;
+  }
+
+  .content-description {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: #b3d4e8;
+    margin: 0;
+    text-align: justify;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Responsive
+@media (min-width: 1920px) {
+  .layout-content {
+    gap: 4rem;
+    max-width: 1600px;
+  }
+
+  .media-wrapper .media-video-iframe {
+    height: 600px;
+  }
+
+  .text-content {
+    .content-title {
+      font-size: 3rem;
+    }
+
+    .content-subtitle {
+      font-size: 1.875rem;
+    }
+
+    .content-description {
+      font-size: 1.375rem;
+    }
+
+    .divider {
+      width: 100px;
+      height: 4px;
+    }
+  }
+}
+
+@media (min-width: 2560px) {
+  .layout-content {
+    gap: 5rem;
+    max-width: 2000px;
+  }
+
+  .media-wrapper .media-video-iframe {
+    height: 750px;
+  }
+
+  .text-content {
+    .content-title {
+      font-size: 3.5rem;
+    }
+
+    .content-subtitle {
+      font-size: 2.25rem;
+    }
+
+    .content-description {
+      font-size: 1.625rem;
+    }
+
+    .divider {
+      width: 120px;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .layout-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .media-wrapper .media-video-iframe {
+    height: 400px;
+  }
+
+  .text-content {
+    .content-title {
+      font-size: 2rem;
+    }
+
+    .content-subtitle {
+      font-size: 1.25rem;
+    }
+
+    .content-description {
+      font-size: 1rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .layout-content {
+    gap: 1.5rem;
+  }
+
+  .media-wrapper .media-video-iframe {
+    height: 350px;
+  }
+
+  .text-content {
+    .content-title {
+      font-size: 1.75rem;
+    }
+
+    .content-subtitle {
+      font-size: 1.125rem;
+    }
+
+    .content-description {
+      font-size: 0.95rem;
+      text-align: left;
+    }
+
+    .divider {
+      width: 60px;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .media-wrapper {
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .text-content {
+    .content-title {
+      font-size: 1.5rem;
+    }
+
+    .content-subtitle {
+      font-size: 1rem;
+    }
+
+    .content-description {
+      font-size: 0.875rem;
+    }
+  }
+
+  .media-wrapper {
+    .media-video {
+      max-height: 250px;
+    }
+
+    .media-badge {
+      padding: 0.4rem 0.75rem;
+      font-size: 0.75rem;
+
+      i {
+        font-size: 0.875rem;
+      }
+    }
+  }
+}

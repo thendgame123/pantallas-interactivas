@@ -1,0 +1,140 @@
+<div class="panel-container" [class.detail-view]="isContentDetailView">
+  <!-- Sección Superior con Búsqueda (Solo visible cuando NO es detalle) -->
+  @if (showSearchBar) {
+    <div class="search-section">
+      <div class="container">
+        <div class="search-container">
+          <div class="search-wrapper">
+            <i class="bi bi-search search-icon"></i>
+            <input
+              type="text"
+              class="form-control search-input"
+              placeholder="Buscar en todo el contenido..."
+              [(ngModel)]="searchQuery"
+              (keyup.enter)="onSearch()"
+              (input)="onSearchInput($event)"
+            />
+            @if (searchQuery.length > 0) {
+              <button class="btn-clear" (click)="clearSearch()">
+                <i class="bi bi-x-lg"></i>
+              </button>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Área de Contenido Principal -->
+  <div class="main-content-section">
+    <div class="container" [class.full-width]="isContentDetailView">
+      <!-- Título y Subtítulo (Solo visible en home) -->
+      @if (showHomeContent) {
+        <div class="title-section">
+          <h1 class="main-title">Biblioteca Multimedia Naval</h1>
+          <p class="subtitle">Selecciona una categoría abajo para explorar el contenido</p>
+        </div>
+      }
+
+      <!-- Resultados de Búsqueda -->
+      @if (showSearchResults) {
+        <div class="search-results-section">
+          <!-- Header de búsqueda -->
+          <div class="search-results-header">
+            <div class="search-icon-wrapper">
+              <i class="bi bi-search"></i>
+            </div>
+            <div class="search-info">
+              <h2 class="results-title">Resultados de búsqueda</h2>
+              <p class="results-query">
+                Buscando: <span class="query-text">"{{ searchQuery }}"</span>
+                @if (!isSearching) {
+                  <span class="results-count"> - {{ searchResults.length }} resultado(s)</span>
+                }
+              </p>
+            </div>
+          </div>
+
+          <!-- Loading -->
+          @if (isSearching) {
+            <div class="loading-container">
+              <div class="spinner-border text-light" role="status">
+                <span class="visually-hidden">Buscando...</span>
+              </div>
+              <p class="loading-text">Buscando contenidos...</p>
+            </div>
+          }
+
+          <!-- Grid de Resultados -->
+          @if (!isSearching && searchResults.length > 0) {
+            <div class="results-grid">
+              @for (contenido of searchResults; track contenido.id) {
+                <div 
+                  class="contenido-card"
+                  [class.video-card]="contenido.type === 'video'"
+                  (click)="onContenidoClick(contenido)">
+                  
+                  <div class="card-media">
+                    <img 
+                      [src]="contenido.image" 
+                      [alt]="contenido.title"
+                      class="media-preview"
+                      loading="lazy"
+                      (error)="getImagePlaceholder($event)">
+                    
+                    @if (contenido.type === 'video') {
+                      <div class="media-overlay">
+                        <div class="play-button">
+                          <i class="bi bi-play-fill"></i>
+                        </div>
+                      </div>
+                    }
+
+                    <div class="media-badge" [class.video-badge]="contenido.type === 'video'">
+                      <i class="bi" [class.bi-play-circle]="contenido.type === 'video'" 
+                         [class.bi-image]="contenido.type === 'image'"></i>
+                      <span>{{ contenido.type === 'video' ? 'Video' : 'Imagen' }}</span>
+                    </div>
+                  </div>
+
+                  <div class="card-body">
+                    <h3 class="card-title">{{ contenido.title }}</h3>
+                    <p class="card-subtitle">{{ contenido.subtitle }}</p>
+                    <p class="card-description">{{ contenido.description }}</p>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+
+          <!-- Sin resultados -->
+          @if (!isSearching && searchResults.length === 0) {
+            <div class="empty-results">
+              <i class="bi bi-search empty-icon"></i>
+              <h3 class="empty-title">No se encontraron resultados</h3>
+              <p class="empty-text">
+                No se encontraron contenidos que coincidan con "{{ searchQuery }}"
+              </p>
+              <button class="btn btn-clear-search" (click)="clearSearch()">
+                <i class="bi bi-arrow-left"></i>
+                Limpiar búsqueda
+              </button>
+            </div>
+          }
+        </div>
+      }
+
+      <!-- Contenido dinámico con router-outlet (Visible cuando hay categoría o contenido seleccionado) -->
+      @if (!showHomeContent && !showSearchResults) {
+        <div class="content-section">
+          <router-outlet></router-outlet>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Navegación de Categorías -->
+  <div class="nav-section">
+    <app-nav-categorias></app-nav-categorias>
+  </div>
+</div>

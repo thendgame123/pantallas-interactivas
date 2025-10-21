@@ -1,0 +1,202 @@
+<div class="screen-saver-container">
+  @if (currentContenido) {
+    <div class="slide-content" [class.scrollable]="currentContenido.layout !== 'video'">
+      <!-- Indicador de slide -->
+      <div class="slide-indicator">
+        {{ currentIndex + 1 }} de {{ contenidosProtector.length }}
+      </div>
+
+      <!-- Layout Video (Solo video pantalla completa) -->
+      @if (currentContenido.layout === 'video') {
+        <div class="video-fullscreen-layout">
+          <!-- Título arriba -->
+          <div class="video-header">
+            <h1 class="video-title-top">{{ currentContenido.title }}</h1>
+          </div>
+          
+          <!-- Video abajo ocupando el resto -->
+          <div class="video-container-full">
+            @if (safeVideoUrl) {
+              <iframe 
+                class="fullscreen-video"
+                [src]="safeVideoUrl"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+              </iframe>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- Layout Izquierda -->
+      @if (currentContenido.layout === 'izquierda') {
+        <div class="content-wrapper">
+          <div class="layout-izquierda">
+            <div class="media-column">
+              @if (currentContenido.type === 'video' && safeVideoUrl) {
+                <iframe 
+                  class="media-iframe"
+                  [src]="safeVideoUrl"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen>
+                </iframe>
+              } @else {
+                <img 
+                  [src]="currentContenido.image"
+                  [alt]="currentContenido.title"
+                  class="media-image"
+                  (error)="getImagePlaceholder($event)">
+              }
+            </div>
+            
+            <div class="text-column">
+              <h1 class="content-title">{{ currentContenido.title }}</h1>
+              <h2 class="content-subtitle">{{ currentContenido.subtitle }}</h2>
+              <div class="divider"></div>
+              <p class="content-description">{{ currentContenido.description }}</p>
+              
+              <!-- Botones dentro del texto -->
+              <div class="action-buttons-inline">
+                <button class="btn btn-primary" (click)="goToContent()">
+                  <i class="bi bi-box-arrow-up-right"></i>
+                  Ir al Contenido
+                </button>
+                <button class="btn btn-secondary" (click)="goToPanel()">
+                  <i class="bi bi-house-door"></i>
+                  Volver al Panel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Layout Derecha -->
+      @if (currentContenido.layout === 'derecha') {
+        <div class="content-wrapper">
+          <div class="layout-derecha">
+            <div class="text-column">
+              <h1 class="content-title">{{ currentContenido.title }}</h1>
+              <h2 class="content-subtitle">{{ currentContenido.subtitle }}</h2>
+              <div class="divider"></div>
+              <p class="content-description">{{ currentContenido.description }}</p>
+              
+              <!-- Botones dentro del texto -->
+              <div class="action-buttons-inline">
+                <button class="btn btn-primary" (click)="goToContent()">
+                  <i class="bi bi-box-arrow-up-right"></i>
+                  Ir al Contenido
+                </button>
+                <button class="btn btn-secondary" (click)="goToPanel()">
+                  <i class="bi bi-house-door"></i>
+                  Volver al Panel
+                </button>
+              </div>
+            </div>
+            
+            <div class="media-column">
+              @if (currentContenido.type === 'video' && safeVideoUrl) {
+                <iframe 
+                  class="media-iframe"
+                  [src]="safeVideoUrl"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen>
+                </iframe>
+              } @else {
+                <img 
+                  [src]="currentContenido.image"
+                  [alt]="currentContenido.title"
+                  class="media-image"
+                  (error)="getImagePlaceholder($event)">
+              }
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Layout Centrado -->
+      @if (currentContenido.layout === 'centrado') {
+        <div class="content-wrapper-centrado">
+          <div class="layout-centrado">
+            <div class="media-section-center">
+              @if (currentContenido.type === 'video' && safeVideoUrl) {
+                <iframe 
+                  class="media-iframe-center"
+                  [src]="safeVideoUrl"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen>
+                </iframe>
+              } @else {
+                <img 
+                  [src]="currentContenido.image"
+                  [alt]="currentContenido.title"
+                  class="media-image-center"
+                  (error)="getImagePlaceholder($event)">
+              }
+            </div>
+            
+            <div class="text-section-center">
+              <h1 class="content-title">{{ currentContenido.title }}</h1>
+              <h2 class="content-subtitle">{{ currentContenido.subtitle }}</h2>
+              <div class="divider"></div>
+              <p class="content-description">{{ currentContenido.description }}</p>
+              
+              <!-- Botones después del texto -->
+              <div class="action-buttons-inline">
+                <button class="btn btn-primary" (click)="goToContent()">
+                  <i class="bi bi-box-arrow-up-right"></i>
+                  Ir al Contenido
+                </button>
+                <button class="btn btn-secondary" (click)="goToPanel()">
+                  <i class="bi bi-house-door"></i>
+                  Volver al Panel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Indicadores de puntos (solo para layouts que no son video) -->
+      @if (currentContenido.layout !== 'video') {
+        <div class="slide-dots">
+          @for (contenido of contenidosProtector; track contenido.id; let i = $index) {
+            <div 
+              class="dot" 
+              [class.active]="i === currentIndex"
+              (click)="showSlide(i)">
+            </div>
+          }
+        </div>
+      }
+
+      <!-- Botones flotantes solo para layout video -->
+      @if (currentContenido.layout === 'video') {
+        <div class="action-buttons-fixed">
+          <button class="btn btn-primary" (click)="goToContent()">
+            <i class="bi bi-box-arrow-up-right"></i>
+            Ir al Contenido
+          </button>
+          <button class="btn btn-secondary" (click)="goToPanel()">
+            <i class="bi bi-house-door"></i>
+            Volver al Panel
+          </button>
+        </div>
+
+        <div class="slide-dots">
+          @for (contenido of contenidosProtector; track contenido.id; let i = $index) {
+            <div 
+              class="dot" 
+              [class.active]="i === currentIndex"
+              (click)="showSlide(i)">
+            </div>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>

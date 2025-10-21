@@ -1,0 +1,81 @@
+
+<div class="contenidos-container">
+  <div class="container-fluid">
+    <!-- Header con información de la categoría -->
+    @if (categoria) {
+      <div class="category-header">
+        <div class="category-icon">
+          <i class="bi bi-anchor"></i>
+        </div>
+        <div class="category-info">
+          <h1 class="category-title">{{ categoria.nombre }}</h1>
+          <p class="category-count">{{ contenidos.length }} elementos disponibles</p>
+        </div>
+      </div>
+    }
+
+    <!-- Loading State -->
+    @if (isLoading) {
+      <div class="loading-container">
+        <div class="spinner-border text-light" role="status">
+          <span class="visually-hidden">Cargando contenidos...</span>
+        </div>
+        <p class="loading-text">Cargando contenidos...</p>
+      </div>
+    }
+
+    <!-- Grid de Contenidos -->
+    @if (!isLoading && contenidos.length > 0) {
+      <div class="contenidos-grid">
+        @for (contenido of contenidos; track contenido.id) {
+          <div 
+            class="contenido-card"
+            [class.video-card]="contenido.type === 'video'"
+            (click)="onContenidoClick(contenido)">
+            
+            <div class="card-media">
+              <!-- Imagen/Video Preview -->
+              <img 
+                [src]="contenido.image" 
+                [alt]="contenido.title"
+                class="media-preview"
+                loading="lazy"
+                (error)="getImagePlaceholder($event)">
+              
+              <!-- Overlay para videos -->
+              @if (contenido.type === 'video') {
+                <div class="media-overlay">
+                  <div class="play-button">
+                    <i class="bi bi-play-fill"></i>
+                  </div>
+                </div>
+              }
+
+              <!-- Badge de tipo -->
+              <div class="media-badge" [class.video-badge]="contenido.type === 'video'">
+                <i class="bi" [class.bi-play-circle]="contenido.type === 'video'" 
+                   [class.bi-image]="contenido.type === 'image'"></i>
+                <span>{{ contenido.type === 'video' ? 'Video' : 'Imagen' }}</span>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <h3 class="card-title">{{ contenido.title }}</h3>
+              <p class="card-subtitle">{{ contenido.subtitle }}</p>
+              <p class="card-description">{{ contenido.description }}</p>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    <!-- Estado vacío -->
+    @if (!isLoading && contenidos.length === 0) {
+      <div class="empty-state">
+        <i class="bi bi-inbox empty-icon"></i>
+        <h3 class="empty-title">No hay contenidos disponibles</h3>
+        <p class="empty-text">Esta categoría aún no tiene contenidos publicados.</p>
+      </div>
+    }
+  </div>
+</div>

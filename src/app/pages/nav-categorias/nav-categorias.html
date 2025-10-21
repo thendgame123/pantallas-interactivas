@@ -1,0 +1,63 @@
+<div class="nav-categoria-container" [class.collapsed]="!isSliderVisible">
+  <div class="container-fluid">
+    <!-- Título de la sección con botón toggle -->
+    <div class="section-header">
+      <h3 class="section-title">Selecciona una categoría</h3>
+      <div class="nav-controls">
+        <button 
+          class="btn btn-toggle" 
+          (click)="toggleSliderVisibility()"
+          [attr.aria-label]="isSliderVisible ? 'Ocultar categorías' : 'Mostrar categorías'">
+          <i class="bi" [class.bi-chevron-down]="isSliderVisible" [class.bi-chevron-up]="!isSliderVisible"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Slider de Categorías con animación de colapso -->
+    <div class="slider-wrapper">
+      <!-- Loading State -->
+      @if (isLoading) {
+        <div class="loading-container">
+          <div class="spinner-border text-light" role="status">
+            <span class="visually-hidden">Cargando...</span>
+          </div>
+        </div>
+      }
+
+      <!-- Categorías -->
+      @if (!isLoading && isSliderVisible) {
+        <div 
+          class="slider-container" 
+          #sliderContainer
+          (mousedown)="onMouseDown($event)"
+          (mouseleave)="onMouseLeave()"
+          (mouseup)="onMouseUp()"
+          (mousemove)="onMouseMove($event)"
+          (touchstart)="onTouchStart($event)"
+          (touchend)="onTouchEnd()"
+          (touchmove)="onTouchMove($event)">
+          
+          @for (categoria of categoriasExtendidas; track categoria.id + '-' + $index) {
+            <div 
+              class="categoria-card"
+              (click)="onCategoriaClick(categoria)">
+              <div class="card-image-wrapper">
+                <img 
+                  [src]="categoria.imagen" 
+                  [alt]="categoria.nombre"
+                  class="card-image"
+                  loading="lazy"
+                  draggable="false"
+                  (error)="$any($event.target).src='assets/images/placeholder.jpg'">
+                <div class="card-overlay"></div>
+              </div>
+              <div class="card-content">
+                <h4 class="card-title">{{ categoria.nombre }}</h4>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</div>

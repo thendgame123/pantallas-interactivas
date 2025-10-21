@@ -1,0 +1,42 @@
+<div class="layout-izquierda-container">
+  <div class="layout-content">
+    <!-- Columna Izquierda: Media (Imagen o Video) -->
+    <div class="media-column">
+      <div class="media-wrapper">
+        @if (contenido.type === 'video' && safeVideoUrl) {
+          <iframe 
+            class="media-video-iframe"
+            [src]="safeVideoUrl"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        } @else {
+          <img 
+            [src]="contenido.image"
+            [alt]="contenido.title"
+            class="media-image"
+            (error)="getImagePlaceholder($event)">
+        }
+        
+        <!-- Badge de tipo -->
+        <div class="media-badge" [class.video-badge]="contenido.type === 'video'">
+          <i class="bi" 
+             [class.bi-play-circle-fill]="contenido.type === 'video'" 
+             [class.bi-image-fill]="contenido.type === 'image'"></i>
+          <span>{{ contenido.type === 'video' ? 'Video' : 'Imagen' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Columna Derecha: Contenido de Texto -->
+    <div class="text-column">
+      <div class="text-content">
+        <h1 class="content-title">{{ contenido.title }}</h1>
+        <h2 class="content-subtitle">{{ contenido.subtitle }}</h2>
+        <div class="divider"></div>
+        <p class="content-description">{{ contenido.description }}</p>
+      </div>
+    </div>
+  </div>
+</div>

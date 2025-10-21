@@ -1,0 +1,28 @@
+<div class="layout-video-container">
+  <div class="layout-content">
+    <!-- Título del Video -->
+    <div class="title-section">
+      <h1 class="video-title">{{ contenido.title }}</h1>
+    </div>
+
+    <!-- Video en Pantalla Completa -->
+    <div class="video-section">
+      <div class="video-wrapper">
+        @if (safeVideoUrl) {
+          <iframe 
+            class="video-iframe"
+            [src]="safeVideoUrl"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        } @else {
+          <div class="video-placeholder">
+            <i class="bi bi-play-circle-fill"></i>
+            <p>Video no disponible</p>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="detalle-contenido-container">
+  <!-- Botón Volver -->
+  <div class="back-button-section">
+    <button class="btn-back" (click)="goBack()">
+      <i class="bi bi-arrow-left"></i>
+      <span>Volver</span>
+    </button>
+  </div>
+
+  <!-- Loading State -->
+  @if (isLoading) {
+    <div class="loading-container">
+      <div class="spinner-border text-light" role="status">
+        <span class="visually-hidden">Cargando contenido...</span>
+      </div>
+      <p class="loading-text">Cargando información...</p>
+    </div>
+  }
+
+  <!-- Contenido según Layout -->
+  @if (!isLoading && contenido) {
+    <div class="content-wrapper">
+      @if (contenido.layout === 'izquierda') {
+        <app-layout-izquierda [contenido]="contenido"></app-layout-izquierda>
+      }
+      
+      @if (contenido.layout === 'derecha') {
+        <app-layout-derecha [contenido]="contenido"></app-layout-derecha>
+      }
+      
+      @if (contenido.layout === 'centrado') {
+        <app-layout-centro [contenido]="contenido"></app-layout-centro>
+      }
+      
+      @if (contenido.layout === 'video') {
+        <app-layout-video [contenido]="contenido"></app-layout-video>
+      }
+    </div>  
+  }
+
+  <!-- Estado de Error -->
+  @if (!isLoading && !contenido) {
+    <div class="error-state">
+      <i class="bi bi-exclamation-triangle error-icon"></i>
+      <h3 class="error-title">Contenido no encontrado</h3>
+      <p class="error-text">El contenido que buscas no existe o ha sido eliminado.</p>
+      <button class="btn btn-primary" (click)="goBack()">
+        Volver al listado
+      </button>
+    </div>
+  }
+</div>

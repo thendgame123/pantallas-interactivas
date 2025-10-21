@@ -1,0 +1,40 @@
+<div class="layout-centrado-container">
+  <div class="layout-content">
+    <!-- Media Grande Centrada (Imagen o Video) -->
+    <div class="media-section">
+      <div class="media-wrapper">
+        @if (contenido.type === 'video' && safeVideoUrl) {
+          <iframe 
+            class="media-video-iframe"
+            [src]="safeVideoUrl"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        } @else {
+          <img 
+            [src]="contenido.image"
+            [alt]="contenido.title"
+            class="media-image"
+            (error)="getImagePlaceholder($event)">
+        }
+        
+        <!-- Badge de tipo -->
+        <div class="media-badge" [class.video-badge]="contenido.type === 'video'">
+          <i class="bi" 
+             [class.bi-play-circle-fill]="contenido.type === 'video'" 
+             [class.bi-image-fill]="contenido.type === 'image'"></i>
+          <span>{{ contenido.type === 'video' ? 'Video' : 'Imagen' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenido de Texto Centrado Debajo -->
+    <div class="text-section">
+      <h1 class="content-title">{{ contenido.title }}</h1>
+      <h2 class="content-subtitle">{{ contenido.subtitle }}</h2>
+      <div class="divider"></div>
+      <p class="content-description">{{ contenido.description }}</p>
+    </div>
+  </div>
+</div>
