@@ -17,7 +17,7 @@ export class ContenidosService {
       subtitle: 'Procedimientos seguros de amarre',
       description: 'Procedimientos seguros de amarre y desembarque en puertos siguiendo protocolos internacionales para garantizar la seguridad de la carga y tripulación.',
       image: 'assets/images/contenidos/atraque.jpg',
-      videoUrl: 'assets/videos/navi.mp4',
+      videoUrl: 'https://www.youtube.com/watch?v=_9dI6UTWoNg',
       type: 'video',
       layout: 'izquierda',
       protector: false
@@ -41,7 +41,7 @@ export class ContenidosService {
       subtitle: 'Apoyo especializado para maniobras',
       description: 'Apoyo especializado para maniobras en zonas portuarias con embarcaciones de alta potencia para asistir buques de gran calado.',
       image: 'assets/images/contenidos/remolcadores.jpg',
-      videoUrl: 'assets/videos/navi.mp4',
+      videoUrl: 'https://www.youtube.com/watch?v=_9dI6UTWoNg',
       type: 'video',
       layout: 'izquierda',
       protector: false
@@ -67,7 +67,7 @@ export class ContenidosService {
       subtitle: 'Transporte seguro de líquidos',
       description: 'Flota especializada en el transporte de combustibles y químicos con sistemas de seguridad certificados internacionalmente.',
       image: 'assets/images/contenidos/tanqueros.jpg',
-      videoUrl: 'assets/videos/navi.mp4',
+      videoUrl: 'https://www.youtube.com/watch?v=_9dI6UTWoNg',
       type: 'video',
       layout: 'derecha',
       protector: false
@@ -93,7 +93,7 @@ export class ContenidosService {
       subtitle: 'Respuesta ante situaciones críticas',
       description: 'Procedimientos establecidos para evacuación, control de incendios y rescate en situaciones de emergencia marítima.',
       image: 'assets/images/contenidos/emergencia.jpg',
-      videoUrl: 'assets/videos/navi.mp4',
+      videoUrl: 'https://www.youtube.com/watch?v=_9dI6UTWoNg',
       type: 'video',
       layout: 'video',
       protector: true
@@ -142,7 +142,7 @@ export class ContenidosService {
       subtitle: 'Momentos decisivos en la historia',
       description: 'Documentación de las batallas navales más importantes que cambiaron el curso de la historia mundial.',
       image: 'assets/images/contenidos/batallas.jpg',
-      videoUrl: 'assets/videos/navi.mp4',
+      videoUrl: 'https://www.youtube.com/watch?v=_9dI6UTWoNg',
       type: 'video',
       layout: 'video',
       protector: false
@@ -168,7 +168,7 @@ export class ContenidosService {
       subtitle: 'Navegación electrónica moderna',
       description: 'Implementación de cartas náuticas electrónicas (ENC) y sistemas de información geográfica para navegación segura.',
       image: 'assets/images/contenidos/cartas.jpg',
-      videoUrl: 'assets/videos/navi.mp4',
+      videoUrl: 'https://www.youtube.com/watch?v=_9dI6UTWoNg',
       type: 'video',
       layout: 'centrado',
       protector: false
@@ -194,7 +194,7 @@ export class ContenidosService {
       subtitle: 'Transporte refrigerado',
       description: 'Manejo especializado de carga refrigerada y congelada manteniendo la cadena de frío durante todo el trayecto.',
       image: 'assets/images/contenidos/frio.jpg',
-      videoUrl: 'assets/videos/navi.mp4',
+      videoUrl: 'https://www.youtube.com/watch?v=_9dI6UTWoNg',
       type: 'video',
       layout: 'derecha',
       protector: false
@@ -220,7 +220,7 @@ export class ContenidosService {
       subtitle: 'Tecnologías limpias en navegación',
       description: 'Implementación de tecnologías para reducir emisiones contaminantes y cumplir con normativas ambientales internacionales.',
       image: 'assets/images/contenidos/emisiones.jpg',
-      videoUrl: 'assets/videos/navi.mp4',
+      videoUrl: 'https://www.youtube.com/watch?v=_9dI6UTWoNg',
       type: 'video',
       layout: 'centrado',
       protector: false
