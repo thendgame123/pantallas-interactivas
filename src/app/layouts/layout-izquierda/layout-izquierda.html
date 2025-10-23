@@ -1,9 +1,32 @@
 <div class="layout-izquierda-container">
   <div class="layout-content">
-    <!-- Columna Izquierda: Media (Imagen o Video) -->
-    <div class="media-column">
-      <div class="media-wrapper">
-        @if (contenido.type === 'video' && safeVideoUrl) {
+    <!-- Columna Izquierda: Media o PDF -->
+    @if (contenido.type === 'pdf' && contenido.pdfUrl) {
+      <div class="media-column">
+        <div class="pdf-wrapper">
+          <iframe 
+            [src]="safePdfUrl" 
+            class="pdf-iframe"
+            type="application/pdf">
+          </iframe>
+          
+          <!-- Badge PDF -->
+          <div class="media-badge pdf-badge">
+            <i class="bi bi-file-pdf"></i>
+            <span>PDF</span>
+          </div>
+          
+          <!-- Botón para abrir en modal (pantalla completa) -->
+          <button class="btn-open-fullscreen" (click)="openPdfModal()" title="Ver en pantalla completa">
+            <i class="bi bi-arrows-fullscreen"></i>
+          </button>
+        </div>
+      </div>
+    }
+    
+    @if (contenido.type === 'video' && safeVideoUrl) {
+      <div class="media-column">
+        <div class="media-wrapper">
           <iframe 
             class="media-video-iframe"
             [src]="safeVideoUrl"
@@ -11,23 +34,31 @@
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen>
           </iframe>
-        } @else {
+          
+          <div class="media-badge video-badge">
+            <i class="bi bi-play-circle-fill"></i>
+            <span>Video</span>
+          </div>
+        </div>
+      </div>
+    }
+    
+    @if (contenido.type === 'image') {
+      <div class="media-column">
+        <div class="media-wrapper">
           <img 
             [src]="contenido.image"
             [alt]="contenido.title"
             class="media-image"
             (error)="getImagePlaceholder($event)">
-        }
-        
-        <!-- Badge de tipo -->
-        <div class="media-badge" [class.video-badge]="contenido.type === 'video'">
-          <i class="bi" 
-             [class.bi-play-circle-fill]="contenido.type === 'video'" 
-             [class.bi-image-fill]="contenido.type === 'image'"></i>
-          <span>{{ contenido.type === 'video' ? 'Video' : 'Imagen' }}</span>
+          
+          <div class="media-badge">
+            <i class="bi bi-image-fill"></i>
+            <span>Imagen</span>
+          </div>
         </div>
       </div>
-    </div>
+    }
 
     <!-- Columna Derecha: Contenido de Texto -->
     <div class="text-column">
@@ -40,3 +71,33 @@
     </div>
   </div>
 </div>
+
+<!-- MODAL PDF FULLSCREEN -->
+@if (showPdfModal) {
+  <div class="pdf-modal-overlay" (click)="closePdfModal()">
+    <div class="pdf-modal-container" (click)="$event.stopPropagation()">
+      <!-- Header del Modal -->
+      <div class="pdf-modal-header">
+        <h2 class="pdf-modal-title">{{ contenido.title }}</h2>
+        <div class="pdf-modal-actions">
+          <button class="btn-icon" (click)="downloadPdf()" title="Descargar PDF">
+            <i class="bi bi-download"></i>
+            <span>Descargar</span>
+          </button>
+          <button class="btn-icon btn-close" (click)="closePdfModal()" title="Cerrar">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- PDF Viewer en Modal -->
+      <div class="pdf-modal-content">
+        <iframe 
+          [src]="safePdfUrl" 
+          class="pdf-iframe-fullscreen"
+          type="application/pdf">
+        </iframe>
+      </div>
+    </div>
+  </div>
+}

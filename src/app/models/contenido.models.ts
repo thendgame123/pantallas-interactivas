@@ -6,7 +6,8 @@ export interface Contenido {
   description: string;
   image: string;
   videoUrl?: string;
-  type: 'video' | 'image';
+  pdfUrl?: string;
+  type: 'video' | 'image' | 'pdf';
   layout: 'izquierda' | 'derecha' | 'centrado' | 'video';
   protector: boolean;
 }

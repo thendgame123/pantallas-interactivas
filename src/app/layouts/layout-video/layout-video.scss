@@ -1,19 +1,30 @@
 .layout-video-container {
   width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
   animation: fadeIn 0.5s ease-in;
+  overflow: hidden;
 }
 
 .layout-content {
+  width: 100%;
+  height: 100%;
   max-width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  overflow: hidden;
+  min-height: 0;
+  padding: 0 1rem;
 }
 
 .title-section {
+  flex-shrink: 0;
   text-align: center;
-  padding: 0 1rem;
+  padding: 0.75rem 0;
 
   .video-title {
     font-size: 3rem;
@@ -27,23 +38,40 @@
 }
 
 .video-section {
+  flex: 1;
   width: 100%;
-  max-width: 1600px;
+  max-width: 100%;
   margin: 0 auto;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pdf-section {
+  flex: 1;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .video-wrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9; // Mantiene proporción estándar
-  background: #000; // fondo negro por si el video tarda en cargar
+  height: 100%;
+  background: #000;
   overflow: hidden;
   display: flex;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 
-  .video-iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
+  .media-video-iframe {
     width: 100%;
     height: 100%;
     border: none;
@@ -54,7 +82,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 750px;
+    width: 100%;
+    height: 100%;
     color: rgba(255, 255, 255, 0.5);
     gap: 1rem;
 
@@ -69,6 +98,226 @@
   }
 }
 
+/* PDF WRAPPER */
+.pdf-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pdf-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.pdf-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(220, 38, 38, 0.9) !important;
+  backdrop-filter: blur(10px);
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #ffffff;
+  font-weight: 500;
+  z-index: 2;
+
+  i {
+    font-size: 1rem;
+  }
+}
+
+.btn-open-fullscreen {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  width: 50px;
+  height: 50px;
+  background: rgba(59, 130, 246, 0.9);
+  border: none;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+
+  &:hover {
+    background: rgba(59, 130, 246, 1);
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  i {
+    pointer-events: none;
+  }
+}
+
+.media-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #ffffff;
+  font-weight: 500;
+  z-index: 2;
+
+  &.video-badge {
+    background: rgba(59, 130, 246, 0.9);
+  }
+
+  i {
+    font-size: 1rem;
+  }
+}
+
+/* MODAL PDF FULLSCREEN */
+.pdf-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease-out;
+  backdrop-filter: blur(5px);
+}
+
+.pdf-modal-container {
+  width: 95%;
+  height: 95%;
+  max-width: 1400px;
+  display: flex;
+  flex-direction: column;
+  background: #001a2b;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  animation: slideUp 0.3s ease-out;
+}
+
+.pdf-modal-header {
+  flex-shrink: 0;
+  padding: 1.5rem;
+  background: linear-gradient(180deg, #002647 0%, #003d66 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pdf-modal-title {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pdf-modal-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.btn-icon {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 25px;
+  color: #ffffff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+
+  i {
+    font-size: 1rem;
+  }
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &.btn-close {
+    padding: 0.75rem;
+    width: 44px;
+    min-width: 44px;
+    justify-content: center;
+    background: rgba(220, 38, 38, 0.15);
+    border-color: rgba(220, 38, 38, 0.3);
+
+    &:hover {
+      background: rgba(220, 38, 38, 0.25);
+      border-color: rgba(220, 38, 38, 0.5);
+    }
+  }
+}
+
+.pdf-modal-content {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.pdf-iframe-fullscreen {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -80,50 +329,97 @@
   }
 }
 
-// Responsive
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (min-width: 1920px) {
-  .title-section .video-title {
-    font-size: 3.75rem;
+  .layout-content {
+    padding: 1rem 2rem;
+    gap: 1.5rem;
   }
 
-  .video-wrapper .video-iframe {
-    height: 900px;
+  .title-section {
+    padding: 0.75rem 0;
+
+    .video-title {
+      font-size: 3.75rem;
+    }
+  }
+
+  .pdf-modal-container {
+    max-width: 1600px;
+  }
+
+  .btn-open-fullscreen {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
   }
 }
 
 @media (min-width: 2560px) {
   .layout-content {
+    padding: 1.5rem 4rem;
     gap: 2rem;
   }
 
   .title-section {
-    padding: 0 2rem;
+    padding: 1rem 0;
 
     .video-title {
       font-size: 4.5rem;
     }
   }
 
-  .video-wrapper .video-iframe {
-    height: 1100px;
+  .pdf-modal-container {
+    max-width: 1800px;
+  }
+
+  .pdf-modal-header {
+    padding: 2.5rem;
+  }
+
+  .pdf-modal-title {
+    font-size: 2.25rem;
+  }
+
+  .btn-icon {
+    padding: 1.25rem 2rem;
+    font-size: 1.125rem;
+
+    i {
+      font-size: 1.5rem;
+    }
+
+    &.btn-close {
+      padding: 1.25rem;
+      width: 56px;
+      min-width: 56px;
+    }
+  }
+
+  .btn-open-fullscreen {
+    width: 70px;
+    height: 70px;
+    font-size: 1.75rem;
   }
 }
 
 @media (max-width: 1400px) {
-  .video-wrapper .video-iframe {
-    height: 650px;
-  }
-
   .title-section .video-title {
     font-size: 2.75rem;
   }
 }
 
 @media (max-width: 1200px) {
-  .video-wrapper .video-iframe {
-    height: 600px;
-  }
-
   .title-section .video-title {
     font-size: 2.5rem;
   }
@@ -131,88 +427,165 @@
 
 @media (max-width: 992px) {
   .layout-content {
-    gap: 1.5rem;
-  }
-
-  .video-wrapper {
-    .video-iframe {
-      height: 550px;
-    }
-
-    .video-placeholder {
-      min-height: 550px;
-    }
+    gap: 1.25rem;
+    padding: 0 1rem;
   }
 
   .title-section {
-    padding: 0 1.5rem;
+    padding: 0.5rem 0;
 
     .video-title {
       font-size: 2.25rem;
     }
   }
+
+  .pdf-modal-container {
+    width: 95%;
+    height: 95%;
+  }
+
+  .pdf-modal-header {
+    padding: 1rem;
+  }
+
+  .pdf-modal-title {
+    font-size: 1.25rem;
+  }
+
+  .btn-icon {
+    padding: 0.625rem 1rem;
+    font-size: 0.8rem;
+
+    i {
+      font-size: 0.875rem;
+    }
+
+    &.btn-close {
+      padding: 0.625rem;
+      width: 40px;
+      min-width: 40px;
+    }
+  }
+
+  .btn-open-fullscreen {
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
+  }
 }
 
 @media (max-width: 768px) {
   .layout-content {
-    gap: 1.25rem;
-  }
-
-  .video-wrapper {
-    border-radius: 12px;
-
-    .video-iframe {
-      height: 450px;
-    }
-
-    .video-placeholder {
-      min-height: 450px;
-
-      i {
-        font-size: 4rem;
-      }
-
-      p {
-        font-size: 1rem;
-      }
-    }
+    gap: 1rem;
+    padding: 0 0.75rem;
   }
 
   .title-section {
-    padding: 0 1rem;
+    padding: 0.5rem 0;
 
     .video-title {
       font-size: 1.875rem;
     }
   }
-}
 
-@media (max-width: 480px) {
   .video-wrapper {
     border-radius: 8px;
+  }
 
-    .video-iframe {
-      height: 350px;
+  .pdf-modal-container {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .pdf-modal-header {
+    padding: 1rem;
+  }
+
+  .btn-icon {
+    padding: 0.625rem 1rem;
+    font-size: 0.8rem;
+
+    i {
+      font-size: 0.875rem;
     }
 
-    .video-placeholder {
-      min-height: 350px;
-
-      i {
-        font-size: 3rem;
-      }
-
-      p {
-        font-size: 0.9rem;
-      }
+    &.btn-close {
+      padding: 0.625rem;
+      width: 40px;
+      min-width: 40px;
     }
   }
 
+  .btn-open-fullscreen {
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .layout-content {
+    gap: 0.75rem;
+    padding: 0 0.5rem;
+  }
+
   .title-section {
-    padding: 0 0.75rem;
+    padding: 0.25rem 0;
 
     .video-title {
       font-size: 1.5rem;
+    }
+  }
+
+  .video-wrapper {
+    border-radius: 8px;
+  }
+
+  .pdf-modal-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  .pdf-modal-header {
+    padding: 0.75rem;
+  }
+
+  .pdf-modal-title {
+    font-size: 1.1rem;
+  }
+
+  .btn-icon {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+
+    span {
+      display: none;
+    }
+
+    i {
+      font-size: 0.8rem;
+    }
+
+    &.btn-close {
+      padding: 0.5rem;
+      width: 36px;
+      min-width: 36px;
+    }
+  }
+
+  .btn-open-fullscreen {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .media-badge {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.75rem;
+
+    i {
+      font-size: 0.875rem;
     }
   }
 }

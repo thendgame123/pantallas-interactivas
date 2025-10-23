@@ -1,40 +1,78 @@
 <div class="layout-centrado-container">
   <div class="layout-content">
-    <!-- Media Grande Centrada (Imagen o Video) -->
-    <div class="media-section">
-      <div class="media-wrapper">
-        @if (contenido.type === 'video' && safeVideoUrl) {
-          <iframe 
-            class="media-video-iframe"
-            [src]="safeVideoUrl"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-          </iframe>
-        } @else {
-          <img 
-            [src]="contenido.image"
-            [alt]="contenido.title"
-            class="media-image"
-            (error)="getImagePlaceholder($event)">
-        }
-        
-        <!-- Badge de tipo -->
-        <div class="media-badge" [class.video-badge]="contenido.type === 'video'">
-          <i class="bi" 
-             [class.bi-play-circle-fill]="contenido.type === 'video'" 
-             [class.bi-image-fill]="contenido.type === 'image'"></i>
-          <span>{{ contenido.type === 'video' ? 'Video' : 'Imagen' }}</span>
+    
+    <!-- PDF ARRIBA -->
+    @if (contenido.type === 'pdf' && contenido.pdfUrl) {
+      <div class="pdf-section">
+        <div class="pdf-wrapper">
+          <iframe [src]="safePdfUrl" class="pdf-iframe" type="application/pdf"></iframe>
+          <div class="media-badge pdf-badge">
+            <i class="bi bi-file-pdf"></i>
+            <span>PDF</span>
+          </div>
+          <button class="btn-open-fullscreen" (click)="openPdfModal()">
+            <i class="bi bi-arrows-fullscreen"></i>
+          </button>
         </div>
       </div>
-    </div>
+    }
+    
+    <!-- VIDEO ARRIBA -->
+    @if (contenido.type === 'video' && safeVideoUrl) {
+      <div class="video-section">
+        <div class="video-wrapper">
+          <iframe class="media-video-iframe" [src]="safeVideoUrl" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <div class="media-badge video-badge">
+            <i class="bi bi-play-circle-fill"></i>
+            <span>Video</span>
+          </div>
+        </div>
+      </div>
+    }
+    
+    <!-- IMAGEN ARRIBA -->
+    @if (contenido.type === 'image') {
+      <div class="media-section">
+        <div class="media-wrapper">
+          <img [src]="contenido.image" [alt]="contenido.title" class="media-image" (error)="getImagePlaceholder($event)">
+          <div class="media-badge">
+            <i class="bi bi-image-fill"></i>
+            <span>Imagen</span>
+          </div>
+        </div>
+      </div>
+    }
 
-    <!-- Contenido de Texto Centrado Debajo -->
+    <!-- TEXTO DEBAJO (SIEMPRE) -->
     <div class="text-section">
       <h1 class="content-title">{{ contenido.title }}</h1>
       <h2 class="content-subtitle">{{ contenido.subtitle }}</h2>
       <div class="divider"></div>
       <p class="content-description">{{ contenido.description }}</p>
     </div>
+
   </div>
 </div>
+
+<!-- MODAL PDF -->
+@if (showPdfModal) {
+  <div class="pdf-modal-overlay" (click)="closePdfModal()">
+    <div class="pdf-modal-container" (click)="$event.stopPropagation()">
+      <div class="pdf-modal-header">
+        <h2 class="pdf-modal-title">{{ contenido.title }}</h2>
+        <div class="pdf-modal-actions">
+          <button class="btn-icon" (click)="downloadPdf()">
+            <i class="bi bi-download"></i>
+            <span>Descargar</span>
+          </button>
+          <button class="btn-icon btn-close" (click)="closePdfModal()">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+      </div>
+      <div class="pdf-modal-content">
+        <iframe [src]="safePdfUrl" class="pdf-iframe-fullscreen" type="application/pdf"></iframe>
+      </div>
+    </div>
+  </div>
+}

@@ -29,7 +29,8 @@ export class ContenidosService {
       subtitle: 'Tecnología avanzada en equipos de carga',
       description: 'Tecnología avanzada en equipos de carga y descarga portuaria con operadores especializados en manejo de contenedores y cargas pesadas.',
       image: 'assets/images/contenidos/gruas.jpg',
-      type: 'image',
+      pdfUrl: 'assets/pdfs/manual-gruas.pdf',
+      type: 'pdf',
       layout: 'derecha',
       protector: true
     },
@@ -54,7 +55,8 @@ export class ContenidosService {
       subtitle: 'Logística Global Moderna',
       description: 'Embarcaciones modernas para el transporte de carga en contenedores con capacidad de miles de TEUs. Nuestra flota de portacontenedores incorpora tecnología de punta en automatización y eficiencia energética, permitiendo conexiones rápidas y seguras entre los principales puertos del comercio internacional.',
       image: 'assets/images/contenidos/portacontenedores.jpg',
-      type: 'image',
+      pdfUrl: 'assets/pdfs/especificaciones-portacontenedores.pdf',
+      type: 'pdf',
       layout: 'izquierda',
       protector: true
     },
@@ -77,7 +79,8 @@ export class ContenidosService {
       subtitle: 'Servicios auxiliares navales',
       description: 'Lanchas y embarcaciones menores para servicios de apoyo, inspección y transporte de personal en zonas portuarias.',
       image: 'assets/images/contenidos/apoyo.jpg',
-      type: 'image',
+      pdfUrl: 'assets/pdfs/catalogo-embarcaciones-apoyo.pdf',
+      type: 'pdf',
       layout: 'centrado',
       protector: true
     },
@@ -102,7 +105,8 @@ export class ContenidosService {
       subtitle: 'EPP certificado para tripulación',
       description: 'Uso correcto de equipos de protección personal incluyendo cascos, chalecos salvavidas, arneses y equipos de respiración.',
       image: 'assets/images/contenidos/epp.jpg',
-      type: 'image',
+      pdfUrl: 'assets/pdfs/guia-epp.pdf',
+      type: 'pdf',
       layout: 'centrado',
       protector: false
     },
@@ -126,7 +130,8 @@ export class ContenidosService {
       subtitle: 'Evolución de la flota submarina',
       description: 'Historia y desarrollo de los submarinos desde sus inicios hasta las modernas unidades de propulsión nuclear.',
       image: 'assets/images/contenidos/submarinos.jpg',
-      type: 'image',
+      pdfUrl: 'assets/pdfs/historia-submarinos.pdf',
+      type: 'pdf',
       layout: 'izquierda',
       protector: false
     },
@@ -151,7 +156,8 @@ export class ContenidosService {
       subtitle: 'Tecnología de posicionamiento global',
       description: 'Uso de sistemas de navegación satelital para posicionamiento preciso y seguridad en la navegación moderna.',
       image: 'assets/images/contenidos/gps.jpg',
-      type: 'image',
+      pdfUrl: 'assets/pdfs/manual-gps-maritimo.pdf',
+      type: 'pdf',
       layout: 'izquierda',
       protector: false
     },
@@ -176,7 +182,8 @@ export class ContenidosService {
       subtitle: 'Optimización de espacios',
       description: 'Sistemas de gestión y organización de contenedores para maximizar la capacidad de carga y eficiencia operativa.',
       image: 'assets/images/contenidos/contenedores.jpg',
-      type: 'image',
+      pdfUrl: 'assets/pdfs/normas-contenedores.pdf',
+      type: 'pdf',
       layout: 'derecha',
       protector: false
     },
@@ -201,7 +208,8 @@ export class ContenidosService {
       subtitle: 'Protección de la biodiversidad marina',
       description: 'Programas de conservación y protección de ecosistemas marinos y especies en peligro de extinción.',
       image: 'assets/images/contenidos/conservacion.jpg',
-      type: 'image',
+      pdfUrl: 'assets/pdfs/programas-conservacion.pdf',
+      type: 'pdf',
       layout: 'izquierda',
       protector: false
     },
@@ -259,7 +267,7 @@ export class ContenidosService {
     return of(resultados).pipe(delay(300));
   }
 
-    /**
+  /**
    * Obtiene contenidos marcados como protector de pantalla
    */
   getContenidosProtector(): Observable<Contenido[]> {

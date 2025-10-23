@@ -1,37 +1,48 @@
-// Importar Bootstrap Icons (asegúrate de tenerlo instalado)
 @use "bootstrap/scss/bootstrap";
 @use "bootstrap-icons/font/bootstrap-icons.css";
 
-// Estilos base para la aplicación
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
+  overflow: hidden;
+  background-color: #002647;
 }
 
-// Personalización de form-control de Bootstrap
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 .form-control {
   &:focus {
     box-shadow: none;
   }
 }
 
-// Deshabilitar outline en botones
 button:focus {
   outline: none;
   box-shadow: none;
 }
 
-// Scrollbar personalizado (opcional)
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -48,4 +59,19 @@ button:focus {
   &:hover {
     background: rgba(0, 0, 0, 0.5);
   }
+}
+
+.container,
+.container-fluid {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+main,
+[role="main"] {
+  display: block;
+  width: 100%;
+  height: 100%;
 }

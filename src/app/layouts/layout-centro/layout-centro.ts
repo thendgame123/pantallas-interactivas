@@ -13,12 +13,19 @@ import { Contenido } from '../../models/contenido.models';
 export class LayoutCentro {
  @Input() contenido!: Contenido;
   safeVideoUrl?: SafeResourceUrl;
+  safePdfUrl?: SafeResourceUrl;
+  showPdfModal: boolean = false;
+  
 
   constructor(private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     if (this.contenido.type === 'video' && this.contenido.videoUrl) {
       this.safeVideoUrl = this.getEmbedUrl(this.contenido.videoUrl);
+    }
+    
+    if (this.contenido.type === 'pdf' && this.contenido.pdfUrl) {
+      this.safePdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.contenido.pdfUrl);
     }
   }
 
@@ -41,5 +48,24 @@ export class LayoutCentro {
   getImagePlaceholder(event: Event): void {
     const target = event.target as HTMLImageElement;
     target.src = 'assets/images/placeholder.jpg';
+  }
+
+  openPdfModal(): void {
+    this.showPdfModal = true;
+    document.body.style.overflow = 'hidden';
+  }
+
+  closePdfModal(): void {
+    this.showPdfModal = false;
+    document.body.style.overflow = 'auto';
+  }
+
+  downloadPdf(): void {
+    if (this.contenido.pdfUrl) {
+      const link = document.createElement('a');
+      link.href = this.contenido.pdfUrl;
+      link.download = `${this.contenido.title}.pdf`;
+      link.click();
+    }
   }
 }

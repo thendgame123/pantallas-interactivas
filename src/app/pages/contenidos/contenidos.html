@@ -55,7 +55,7 @@
               <div class="media-badge" [class.video-badge]="contenido.type === 'video'">
                 <i class="bi" [class.bi-play-circle]="contenido.type === 'video'" 
                    [class.bi-image]="contenido.type === 'image'"></i>
-                <span>{{ contenido.type === 'video' ? 'Video' : 'Imagen' }}</span>
+                <span>{{ contenido.type === 'video' ? 'Video' : contenido.type ==='pdf' ? 'PDF' : 'Imagen' }}</span>
               </div>
             </div>
 

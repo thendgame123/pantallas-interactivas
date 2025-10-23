@@ -7,7 +7,6 @@
     "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "echo 'Tests deshabilitados en entorno CI/CD'"
-
   },
   "prettier": {
     "printWidth": 100,
@@ -32,6 +31,7 @@
     "@angular/router": "^20.3.0",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.13.1",
+    "pdfjs-dist": "^5.4.296",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
